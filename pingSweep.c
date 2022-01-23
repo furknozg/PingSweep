@@ -20,6 +20,13 @@ enum return_codes
     UNKNOWN = 2,
 };
 
+struct thread_args
+{
+    const char * subnet;
+    const char * range_start;
+    const char * range_end;
+};
+
 const char *sysname = "bash";
 
 int file_exists(const char *path_name)
@@ -164,6 +171,14 @@ int main(const int argc, const char **argv)
             {
                 int n = atoi(argv[5]);
                 pthread_t tid[n];
+                for (int i = 0; i < n; i++)
+                {
+                    struct thread_args *args = malloc (sizeof (struct thread_args));
+                    args-> subnet = argv[1];
+                    args->range_start = argv[2] + n*i;
+                    args->range_end = argv[3] + n*(i + 1);
+                    pthread_create(&tid, NULL, ping_sweep, args);
+                }
             }
         }
         else
@@ -172,7 +187,6 @@ int main(const int argc, const char **argv)
         }
         exit(1);
     }
-
 
     if (argc - 1 == 3)
     {
@@ -184,6 +198,5 @@ int main(const int argc, const char **argv)
         exit(1);
     }
 
- 
     return 0;
 }
