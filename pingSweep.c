@@ -183,6 +183,8 @@ int main(const int argc, const char **argv)
                 {
                        pthread_join(tid[i], NULL);
                 }
+            } else{
+                printf("Usage: ./outfile subnet lower upper [optional: -t thread_count]\n");
             }
         }
         else
