@@ -196,6 +196,7 @@ int main(const int argc, const char **argv)
 
     if (argc - 1 == 3)
     {
+        // Default run config, WORKS!
         ping_sweep(argv[1], argv[2], argv[3]);
     }
     else
