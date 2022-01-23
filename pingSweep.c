@@ -177,7 +177,11 @@ int main(const int argc, const char **argv)
                     args-> subnet = argv[1];
                     args->range_start = argv[2] + n*i;
                     args->range_end = argv[3] + n*(i + 1);
-                    pthread_create(&tid, NULL, ping_sweep, args);
+                    pthread_create(&tid[i], NULL, ping_sweep, args);
+                }
+                for (int i = 0; i < n; i++)
+                {
+                       pthread_join(tid[i], NULL);
                 }
             }
         }
